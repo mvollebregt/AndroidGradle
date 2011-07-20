@@ -1,3 +1,7 @@
-include 'Eclipse'
-include 'EclipseTest'
+// dynamically include all directories that do not start with .
 
+new File('.').eachDir {
+	if (!it.name.startsWith('.')) {
+		include it.name
+	}
+}
