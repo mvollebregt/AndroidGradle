@@ -1,0 +1,57 @@
+
+// To specify the android sdk:
+// - create a file local.properties
+// - specify: 'sdk.dir=/path/to/android/sdk'
+
+// To load the project into eclipse:
+// - type gradle eclipse
+// - import the existing project into eclipse
+// - right click on the project; select Android Tools - Fix Project Properties
+
+buildscript {
+    repositories {
+        mavenRepo(urls: 'http://jvoegele.com/maven2/')
+    }
+    dependencies {
+        classpath 'com.jvoegele.gradle.plugins:android-plugin:0.9.9'
+    }   
+}
+
+apply plugin: 'android'
+apply plugin: 'eclipse'
+
+defaultTasks 'androidPackage'
+
+// if there is a test project, run the tests first!
+def testProject = ":${project.name}Test"
+def testProjectExists = findProject(testProject)
+if (testProjectExists) {
+	androidPackage.dependsOn "${testProject}:test"
+}
+gradle.taskGraph.whenReady {taskGraph ->
+	if (testProjectExists) {
+    	def testTask = tasks.findByPath("${testProject}:test")
+    	if (!testTask) throw new RuntimeException("Test project ${testProject} found, but its gradle build file does not define a test task.");
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+// Use android source folder layout instead of maven
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+// add android nature to eclipse project
+eclipseProject {
+    natures += 'com.android.ide.eclipse.adt.AndroidNature'
+}

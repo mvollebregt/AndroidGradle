@@ -1,0 +1,47 @@
+
+// To run the tests under eclipse:
+// - make sure you use the eclipse junit launcher, NOT the android launcher
+// - in the run configuration, on the Arguments tab, specify the working
+//   directory to be root directory of the project under test
+
+// For more information for setting up robolectric with eclipse, see:
+// http://pivotal.github.com/robolectric/eclipse-quick-start.html
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+defaultTasks 'test'
+
+// find the project under test
+if (!project.name.endsWith('Test')) {
+    throw new RuntimeException("Error: test project name must end with 'Test'");
+}
+def projectUnderTest = project.name.substring(0, project.name.length() - 4)
+def projectUnderTestExists = findProject(":${projectUnderTest}")
+if (!projectUnderTestExists) {
+	throw new RuntimeException("Project under test :${projectUnderTest} could not be found.");
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":${projectUnderTest}")
+    testCompile 'junit:junit:4.8.2',
+                'com.pivotallabs:robolectric:0.9.8',
+                'com.google.android:android:2.3.3'
+}
+
+// Use android source folder layout instead of maven
+sourceSets {
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
+}
+
+test {
+    workingDir project(":${projectUnderTest}").projectDir
+}
