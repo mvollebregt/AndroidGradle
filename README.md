@@ -40,17 +40,29 @@ Creating a new project
 ----------------------
 These are instructions for using the gradle build files from this project in a new Android project.
 
-* Copy the following folder structure from this project:
+1. Copy the following folder structure from this project:
+   * .gitignore  
+   * build.gradle  
+   * README.md  
+   * settings.gradle  
+   * _AndroidProject_  
+   * _AndroidProject_/build.gradle  
+   * _AndroidProjectTest_  
+   * _AndroidProjectTest_/build.gradle  
 
-    .gitignore  
-    build.gradle  
-    README.md  
-    settings.gradle  
-    _AndroidProject_  
-    _AndroidProject_/build.gradle  
-    _AndroidProjectTest_  
-    _AndroidProjectTest_/build.gradle  
+2. Create a new Android project in the _AndroidProject_ folder. You can use Eclipse for this.
+   * Make sure the target folder for the new Eclipse project is the _AndroidProject_ folder.
+   * Do NOT create an android Test Project.
 
+3. Follow the steps in *Setting the Android SDK dir* as described above
+
+4. Go to the root folder (containing README.md) and type `gradle _AndroidProjectTest_:eclipse`
+
+5. In Eclipse: import the generated existing project into the workspace
+   
+6. Follow the steps *Setting up Eclipse test configuration*
+
+### Attention
 * You can change the project names _AndroidProject_ and _AndroidProjectTest_ into _XXX_ and _XXX_Test.
 * It is possible to use _AndroidProject_/build.gradle without the test project.
 * Make sure you do NOT check in files specified in .gitignore in version control. This will cause problems.
