@@ -56,11 +56,11 @@ These are instructions for using the gradle build files from this project in a n
 
 3. Follow the steps in *Setting the Android SDK dir* as described above
 
-4. Go to the root folder (containing README.md) and type `gradle _AndroidProjectTest_:eclipse`
+4. Go to the root folder (containing README.md) and type `gradle :_AndroidProjectTest_:eclipse`
 
 5. In Eclipse: import the generated existing project into the workspace
    
-6. Follow the steps *Setting up Eclipse test configuration*
+6. Follow the steps in *Setting up Eclipse test configuration* as described above
 
 ### Attention
 * You can change the project names _AndroidProject_ and _AndroidProjectTest_ into _XXX_ and _XXX_Test.
