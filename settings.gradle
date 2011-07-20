@@ -1,7 +1,7 @@
-// dynamically include all directories that do not start with .
+// dynamically include all directories that contain build.gradle
 
 new File('.').eachDir {
-	if (!it.name.startsWith('.')) {
-		include it.name
-	}
+    if (it.listFiles()*.name.contains('build.gradle')) {
+        include it.name
+    }
 }
